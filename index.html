@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mGrant NUO — Feature Note v2.0 | April 2026</title>
+<style>
+  :root {
+    --primary: #1B4F72;
+    --primary-light: #2E86C1;
+    --accent: #27AE60;
+    --accent-light: #82E0AA;
+    --warm: #F39C12;
+    --bg: #FAFBFC;
+    --card: #FFFFFF;
+    --text: #2C3E50;
+    --text-muted: #7F8C8D;
+    --border: #E5E8EB;
+    --section-bg: #F0F4F8;
+    --gradient-start: #1B4F72;
+    --gradient-end: #2E86C1;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    color: white;
+    padding: 60px 40px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: var(--bg);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .hero .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hero h1 { font-size: 42px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .hero .subtitle { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto 24px; }
+  .hero .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .hero .stat { text-align: center; }
+  .hero .stat .num { font-size: 32px; font-weight: 700; }
+  .hero .stat .label { font-size: 13px; opacity: 0.8; }
+
+  /* ─── NAV ─── */
+  .toc {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .toc::-webkit-scrollbar { display: none; }
+  .toc a {
+    padding: 14px 16px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .toc a:hover, .toc a.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+  }
+
+  /* ─── LAYOUT ─── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  section { padding: 56px 0; }
+  section:nth-child(even) { background: var(--section-bg); }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .section-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+  .section-header p {
+    color: var(--text-muted);
+    font-size: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ─── CARDS ─── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    transition: box-shadow 0.25s, transform 0.25s;
+    cursor: default;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+  .card .icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  .card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+  .card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+  .card ul { list-style: none; margin-top: 10px; }
+  .card ul li {
+    padding: 4px 0;
+    font-size: 13.5px;
+    color: var(--text);
+    position: relative;
+    padding-left: 18px;
+  }
+  .card ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .icon-blue { background: #EBF5FB; color: var(--primary-light); }
+  .icon-green { background: #EAFAF1; color: var(--accent); }
+  .icon-orange { background: #FEF5E7; color: var(--warm); }
+  .icon-purple { background: #F4ECF7; color: #8E44AD; }
+  .icon-red { background: #FDEDEC; color: #E74C3C; }
+  .icon-teal { background: #E8F8F5; color: #1ABC9C; }
+
+  /* ─── NEW BADGE ─── */
+  .new-tag {
+    display: inline-block;
+    background: #E74C3C;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+
+  /* ─── FLOWCHART ─── */
+  .flow-container {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    overflow-x: auto;
+  }
+  .flow-horizontal {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    min-width: 900px;
+    justify-content: center;
+  }
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 130px;
+    flex-shrink: 0;
+  }
+  .flow-step .circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .flow-step .step-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .flow-step .step-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    padding-top: 16px;
+    font-size: 20px;
+    color: #BDC3C7;
+    flex-shrink: 0;
+  }
+
+  /* ─── VERTICAL FLOW ─── */
+  .flow-vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .flow-v-step {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 24px;
+    width: 100%;
+    max-width: 500px;
+  }
+  .flow-v-step .v-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+  .flow-v-step .v-content h4 { font-size: 14px; font-weight: 600; }
+  .flow-v-step .v-content p { font-size: 12.5px; color: var(--text-muted); }
+  .flow-v-arrow { color: #BDC3C7; font-size: 18px; padding: 4px 0; }
+
+  /* ─── COMPARISON TABLE ─── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .compare-table th {
+    background: var(--primary);
+    color: white;
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .compare-table td {
+    padding: 12px 20px;
+    font-size: 13.5px;
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: #F8FAFC; }
+  .check { color: var(--accent); font-weight: 700; }
+  .cross { color: #E74C3C; }
+
+  /* ─── INTEGRATION LOGOS ─── */
+  .integration-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .int-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: box-shadow 0.2s;
+  }
+  .int-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+  .int-card .int-icon { font-size: 28px; margin-bottom: 8px; }
+  .int-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .int-card p { font-size: 12px; color: var(--text-muted); }
+
+  /* ─── COLLAPSIBLE ─── */
+  details {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  details summary {
+    padding: 16px 24px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  details summary:hover { background: #F8FAFC; }
+  details summary::marker { content: ''; }
+  details summary .chevron {
+    margin-left: auto;
+    transition: transform 0.2s;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  details[open] summary .chevron { transform: rotate(90deg); }
+  details .detail-body { padding: 0 24px 20px; font-size: 14px; line-height: 1.7; }
+  details .detail-body ul { margin-top: 8px; padding-left: 20px; }
+  details .detail-body li { margin-bottom: 6px; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--primary);
+    color: white;
+    text-align: center;
+    padding: 32px 24px;
+  }
+  footer p { font-size: 13px; opacity: 0.85; }
+  footer a { color: var(--accent-light); text-decoration: none; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 28px; }
+    .hero .stats-row { gap: 24px; }
+    .toc a { padding: 12px 10px; font-size: 12px; }
+    .card-grid { grid-template-columns: 1fr; }
+    section { padding: 40px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="hero">
+  <div class="badge">Product Feature Note &bull; v2.0 &bull; April 2026</div>
+  <h1>mGrant NUO</h1>
+  <p class="subtitle">The Complete Grant Management Platform for Non-Profit Organisations</p>
+  <div class="stats-row">
+    <div class="stat"><div class="num">1,500+</div><div class="label">NGOs on mGrant</div></div>
+    <div class="stat"><div class="num">50+</div><div class="label">Donor Organisations</div></div>
+    <div class="stat"><div class="num">350+</div><div class="label">KPIs Tracked</div></div>
+    <div class="stat"><div class="num">88</div><div class="label">Active Grants</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="toc" id="toc">
+  <a href="#overview">Overview</a>
+  <a href="#lifecycle">Lifecycle</a>
+  <a href="#modules">Core Modules</a>
+  <a href="#ai">AI &amp; MCP</a>
+  <a href="#integrations">Integrations</a>
+  <a href="#dashboards">Dashboards</a>
+  <a href="#roles">Roles &amp; Security</a>
+  <a href="#whynuo">Why NUO</a>
+</nav>
+
+<!-- ═══════════════ OVERVIEW ═══════════════ -->
+<section id="overview">
+<div class="container">
+  <div class="section-header">
+    <h2>What is mGrant NUO?</h2>
+    <p>A purpose-built SaaS platform that gives NGOs a single, unified workspace to manage donors, grants, projects, compliance, and impact — end to end.</p>
+  </div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="icon icon-blue">&#x1F4CA;</div>
+      <h3>Single Source of Truth</h3>
+      <p>Replace scattered spreadsheets and email threads with one platform. Every donor, every grant, every report — in one place, accessible from any browser.</p>
+    </div>
+    <div class="card">
+      <div class="icon icon-green">&#x1F4B0;</div>
+      <h3>Fund Lifecycle Management</h3>
+      <p>From proposal submission to fund receipt, budget allocation, utilisation tracking, and quarterly reconciliation — the entire money trail is tracked automatically.</p>
+    </div>
+    <div class="card">
+      <div class="icon icon-orange">&#x1F4C8;</div>
+      <h3>Impact Measurement</h3>
+      <p>Define outputs, outcomes, and impact indicators using the Logical Framework Approach (LFA). Track planned vs. actual achievements across geographies and programmes.</p>
+    </div>
+    <div class="card">
+      <div class="icon icon-purple">&#x1F916;</div>
+      <h3>AI-Powered Intelligence <span class="new-tag">NEW</span></h3>
+      <p>Ask questions in plain language via the MCP-powered data chat. Get instant answers about fund status, KPI progress, and portfolio health without writing a single query.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════ LIFECYCLE FLOWCHART ═══════════════ -->
+<section id="lifecycle">
+<div class="container">
+  <div class="section-header">
+    <h2>The NGO Grant Lifecycle on mGrant NUO</h2>
+    <p>From onboarding to project closure — every stage is managed, tracked, and auditable.</p>
+  </div>
+  <div class="flow-container">
+    <div class="flow-horizontal">
+      <div class="flow-step">
+        <div class="circle" style="background: #2E86C1;">1</div>
+        <div class="step-label">Onboarding</div>
+        <div class="step-desc">Self-register, complete org profile, upload documents</div>
+      </div>
+      <div class="flow-arrow">&#x2794;</div>
+      <div class="flow-step">
+        <div class="circle" style="background: #8E44AD;">2</div>
+        <div class="step-label">Due Diligence</div>
+        <div class="step-desc">Upload compliance docs, donor reviews &amp; rates</div>
+      </div>
+      <div class="flow-arrow">&#x2794;</div>
+      <div class="flow-step">
+        <div class="circle" style="background: #27AE60;">3</div>
+        <div class="step-label">Proposal / GAF</div>
+        <div class="step-desc">Submit proposals, respond to RFPs, get scored &amp; approved</div>
+      </div>
+      <div class="flow-arrow">&#x2794;</div>
+      <div class="flow-step">
+        <div class="circle" style="background: #F39C12;">4</div>
+        <div class="step-label">Project Setup</div>
+        <div class="step-desc">MoU generated, budget allocated, KPIs defined</div>
+      </div>
+      <div class="flow-arrow">&#x2794;</div>
+      <div class="flow-step">
+        <div class="circle" style="background: #E74C3C;">5</div>
+        <div class="step-label">Fund Management</div>
+        <div class="step-desc">Raise fund requests, track disbursements &amp; utilisation</div>
+      </div>
+      <div class="flow-arrow">&#x2794;</div>
+      <div class="flow-step">
+        <div class="circle" style="background: #1ABC9C;">6</div>
+        <div class="step-label">Monitoring</div>
+        <div class="step-desc">QPR, QFR submission, field visits, LFA tracking</div>
+      </div>
+      <div class="flow-arrow">&#x2794;</div>
+      <div class="flow-step">
+        <div class="circle" style="background: #34495E;">7</div>
+        <div class="step-label">Renewal / Closure</div>
+        <div class="step-desc">Annual renewal, no-cost extension, or project closure</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════ CORE MODULES ═══════════════ -->
+<section id="modules">
+<div class="container">
+  <div class="section-header">
+    <h2>Core Modules</h2>
+    <p>Detailed walkthrough of every functional module available to NGO users on the platform.</p>
+  </div>
+
+  <!-- Module 1: NGO Onboarding -->
+  <details open>
+    <summary>
+      <span style="font-size:18px;">&#x1F3E2;</span> NGO Onboarding &amp; Profile Management
+      <span class="chevron">&#x25B6;</span>
+    </summary>
+    <div class="detail-body">
+      <p>NGOs receive a secure self-registration link from the donor SPOC. Upon registration, they set up credentials and complete their organisational profile — including legal registrations, bank details, leadership information, and operational geography.</p>
+      <ul>
+        <li><strong>Self-Registration Portal:</strong> Secure invite-based signup with Google or Office 365 SSO</li>
+        <li><strong>Organisation Profile:</strong> PAN, 12A/80G certificates, audited financials, governance structure</li>
+        <li><strong>NGO Dashboard:</strong> Ongoing projects, proposals in progress, funding received, and profile status — all in one view</li>
+        <li><strong>Multi-User Access:</strong> Create additional users with role-based permissions (PM, Finance, M&amp;E)</li>
+        <li><strong>Repeat NGO Prefill:</strong> Returning NGOs get pre-populated profiles — no duplicate data entry</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- Module 2: Due Diligence -->
+  <details>
+    <summary>
+      <span style="font-size:18px;">&#x1F50D;</span> Due Diligence &amp; Compliance
+      <span class="chevron">&#x25B6;</span>
+    </summary>
+    <div class="detail-body">
+      <p>A structured workflow for capturing, validating, and storing NGO compliance and governance information. Donors review and rate each NGO before activating grants.</p>
+      <ul>
+        <li><strong>Document Upload:</strong> Registration certificates, audited financials, compliance reports, governance policies</li>
+        <li><strong>Status Tracking:</strong> Pending Review → Conducted / Waived Off / Not Conducted</li>
+        <li><strong>Rating System:</strong> Configurable rating scale assigned by donor reviewers</li>
+        <li><strong>History &amp; Audit Log:</strong> All due diligence outcomes logged in the NGO's profile history</li>
+        <li><strong>Automated Notifications:</strong> NGO receives email on status change; Admin dashboard filterable by DD status</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- Module 3: Proposals & GAF -->
+  <details>
+    <summary>
+      <span style="font-size:18px;">&#x1F4DD;</span> Proposals, RFPs &amp; Grant Application Forms
+      <span class="chevron">&#x25B6;</span>
+    </summary>
+    <div class="detail-body">
+      <p>The complete proposal lifecycle — from discovering relevant RFPs to submitting structured Grant Application Forms (GAFs) with technical, financial, and compliance details.</p>
+      <ul>
+        <li><strong>RFP Scouting Agent:</strong> <span class="new-tag">NEW</span> AI agent that understands your organisation's focus areas and proactively surfaces relevant RFPs and funding opportunities</li>
+        <li><strong>GAF Submission:</strong> Structured application forms with configurable questions, budget formats, and selection criteria</li>
+        <li><strong>Open &amp; Closed Modes:</strong> Public proposals via portal or private invitations to specific NGOs</li>
+        <li><strong>Multi-Level Assessment:</strong> Commenting, clarification requests, scoring rubrics, and role-based reviewer access</li>
+        <li><strong>Board Note Auto-Generation:</strong> System auto-generates Board Notes post-approval, editable by Grant Manager / PL / CEO</li>
+        <li><strong>Financial Quarters:</strong> Budget proposals tied to fixed Indian fiscal quarters (Apr–Jun, Jul–Sep, Oct–Dec, Jan–Mar)</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- Module 4: Project Management -->
+  <details>
+    <summary>
+      <span style="font-size:18px;">&#x1F4C1;</span> Project Setup &amp; Management
+      <span class="chevron">&#x25B6;</span>
+    </summary>
+    <div class="detail-body">
+      <p>The heart of mGrant NUO. Every approved grant becomes a Project — with 11 detailed tabs covering identity, geography, budgets, targets, tasks, and results.</p>
+      <ul>
+        <li><strong>Auto Project Code:</strong> Unique project code generated upon Board Note approval</li>
+        <li><strong>Details Tab:</strong> Implementation type, project name, dates, frequency, portfolio themes, SDG alignment, MoU upload</li>
+        <li><strong>Entity (Donor) Linking:</strong> Select donor → auto-populate contact, email, and PoC details</li>
+        <li><strong>Geographical Mapping:</strong> Hierarchical selection — State → District → Block — with visual overview panel</li>
+        <li><strong>MoU &amp; Sanction Letters:</strong> Auto-generated, routed for approval, signed versions stored in the system</li>
+        <li><strong>Sub-Implementation Support:</strong> For projects where partner NGOs carry out ground-level work</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- Module 5: Budgeting & Fund Management -->
+  <details>
+    <summary>
+      <span style="font-size:18px;">&#x1F4B5;</span> Budgeting &amp; Fund Management
+      <span class="chevron">&#x25B6;</span>
+    </summary>
+    <div class="detail-body">
+      <p>End-to-end financial management — from committed budgets and fund requests to disbursements, utilisation tracking, and reconciliation.</p>
+      <ul>
+        <li><strong>Budget Allocation:</strong> Break down sanctioned amount by Budget Heads (Personnel, Travel, Programme costs, etc.)</li>
+        <li><strong>Fund Receipts &amp; Tranches:</strong> Record planned instalments and actual payments received — with real-time summary cards</li>
+        <li><strong>Fund Requests:</strong> NGOs raise requests against quarterly ceilings; approval workflows based on configurable thresholds</li>
+        <li><strong>Disbursement Tracking:</strong> Auto-update released vs. requested amounts; UTR number recording</li>
+        <li><strong>Unutilised Fund Handling:</strong> Under 1 year: no-cost extension. Multi-year: rollover of unutilised disbursed funds</li>
+        <li><strong>Partner Payments:</strong> For sub-implementation projects — plan and record payments to partner NGOs separately</li>
+        <li><strong>Instalment &amp; Milestone Reminders:</strong> Automated alerts for upcoming disbursement and reporting deadlines</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- Module 6: Monitoring & Reporting -->
+  <details>
+    <summary>
+      <span style="font-size:18px;">&#x1F4CA;</span> Project Monitoring &amp; Reporting
+      <span class="chevron">&#x25B6;</span>
+    </summary>
+    <div class="detail-body">
+      <p>Structured monitoring across progress, finance, and impact — with quarterly cycles, field visit reports, and LFA tracking.</p>
+      <ul>
+        <li><strong>QPR (Quarterly Progress Reports):</strong> Submit intervention targets vs. actual achievements + narrative report</li>
+        <li><strong>QFR (Quarterly Fund Utilisation):</strong> Utilisation statements + reconciliation reports submitted quarterly</li>
+        <li><strong>QRR (Quarterly Review Report):</strong> Auto-generated summary combining QPR + QFR; editable by Grant Manager</li>
+        <li><strong>Field Visit Reports:</strong> Grant Managers submit within 10 days of a site visit</li>
+        <li><strong>LFA Tracking:</strong> Define and monitor Outputs, Outcomes, and Impact indicators at the project level</li>
+        <li><strong>Granular Data Capture:</strong> Detailed KPI / beneficiary-level data for impact assessment (integrates with mForm)</li>
+        <li><strong>Output &amp; Outcome Tables:</strong> Cross-project tracking with filters by Project, Financial Year, Focus Area, Partner, State</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- Module 7: Tasks -->
+  <details>
+    <summary>
+      <span style="font-size:18px;">&#x2705;</span> Task Management
+      <span class="chevron">&#x25B6;</span>
+    </summary>
+    <div class="detail-body">
+      <p>Create, assign, and track work items across all projects — field visits, report deadlines, procurement, milestones, or any activity that needs monitoring.</p>
+      <ul>
+        <li><strong>Task Board:</strong> View all tasks with priority (Low / Medium / High), status (Todo / In Progress / Done), and due dates</li>
+        <li><strong>Auto Closure Status:</strong> System flags overdue tasks as "Delayed" automatically</li>
+        <li><strong>Quick Status Update:</strong> Change status directly from the list view — no need to open the full record</li>
+        <li><strong>Cross-Project View:</strong> See all tasks across all projects in a unified list</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- Module 8: Approvals -->
+  <details>
+    <summary>
+      <span style="font-size:18px;">&#x1F4CB;</span> Approval Workflows
+      <span class="chevron">&#x25B6;</span>
+    </summary>
+    <div class="detail-body">
+      <p>Centralised approval tracker for budget changes, project updates, report submissions, and any record requiring sign-off.</p>
+      <ul>
+        <li><strong>Dashboard Counters:</strong> Total Requests, Approved, Pending on Me, Rejected — at a glance</li>
+        <li><strong>Multi-Level Workflows:</strong> Configurable approval chains (e.g., Proposal → Programme Officer → Donor Review)</li>
+        <li><strong>Module-Wise Filtering:</strong> Filter by Budget Utilisation, Project, Report, etc.</li>
+        <li><strong>Auto-Notifications:</strong> Submitter notified on approval/rejection; escalation alerts for overdue approvals</li>
+        <li><strong>No-Code Configuration:</strong> Administrators can modify approval workflows without developer involvement</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- Module 9: Renewal -->
+  <details>
+    <summary>
+      <span style="font-size:18px;">&#x1F504;</span> Project Renewal &amp; Extension
+      <span class="chevron">&#x25B6;</span>
+    </summary>
+    <div class="detail-body">
+      <p>Multi-year project management with structured renewal cycles and extension mechanisms.</p>
+      <ul>
+        <li><strong>Annual Renewal:</strong> Each year treated as a new cycle — fresh GAF, new sanction letter post-approval</li>
+        <li><strong>No-Cost Extension:</strong> System generates editable extension letters routed for approvals</li>
+        <li><strong>Extension with New MoU:</strong> Formal extension with fresh documentation and sanction letters</li>
+        <li><strong>Automated Notifications:</strong> GM, PL, CEO, assessor, and NGO notified at every step</li>
+      </ul>
+    </div>
+  </details>
+
+</div>
+</section>
+
+<!-- ═══════════════ AI & MCP ═══════════════ -->
+<section id="ai">
+<div class="container">
+  <div class="section-header">
+    <h2>AI-Powered Intelligence <span class="new-tag">NEW</span></h2>
+    <p>mGrant NUO leverages the Model Context Protocol (MCP) to bring AI directly into your grant management workflow.</p>
+  </div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="icon icon-purple">&#x1F4AC;</div>
+      <h3>Natural Language Data Chat</h3>
+      <p>Ask questions like "What is the total unutilised amount across all active grants?" or "Which projects have overdue QPR submissions?" — and get instant, accurate answers from your live data.</p>
+      <ul>
+        <li>34 MCP tools across 7 functional categories</li>
+        <li>Real-time budget and fund availability calculations</li>
+        <li>KPI tracking and quarterly utilisation queries</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="icon icon-green">&#x1F50E;</div>
+      <h3>RFP Scouting Agent</h3>
+      <p>An AI agent that continuously scans for relevant RFPs and funding opportunities based on your organisation's thematic areas, geography, and track record.</p>
+      <ul>
+        <li>Understands your NGO's focus areas and capabilities</li>
+        <li>Proactively surfaces matching proposals</li>
+        <li>Reduces time spent on manual opportunity discovery</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="icon icon-blue">&#x1F4C4;</div>
+      <h3>AI Report Summarisation</h3>
+      <p>Automatically extract key findings from lengthy qualitative reports. Identify patterns across narrative submissions and transform them into actionable insights.</p>
+      <ul>
+        <li>Theme identification across multiple reports</li>
+        <li>Insight generation from qualitative data</li>
+        <li>Executive summaries auto-generated</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="icon icon-orange">&#x1F4DD;</div>
+      <h3>Proposal Writing Assistance</h3>
+      <p>Accelerate proposal drafting with AI-assisted writing. Access past successful proposals, get content recommendations, and ensure alignment with donor requirements.</p>
+      <ul>
+        <li>Template management for different donor formats</li>
+        <li>Content recommendations from past successes</li>
+        <li>Donor requirement alignment checks</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MCP Architecture Mini-Flow -->
+  <div style="margin-top: 36px;">
+    <h3 style="text-align:center; font-size:16px; margin-bottom:20px; color:var(--text-muted);">MCP Architecture</h3>
+    <div class="flow-container" style="padding: 24px;">
+      <div class="flow-horizontal" style="min-width: 700px;">
+        <div class="flow-step" style="width:150px;">
+          <div class="circle" style="background:#8E44AD; width:48px; height:48px; font-size:18px;">&#x1F464;</div>
+          <div class="step-label">NGO User</div>
+          <div class="step-desc">Asks a question in plain language</div>
+        </div>
+        <div class="flow-arrow">&#x2794;</div>
+        <div class="flow-step" style="width:150px;">
+          <div class="circle" style="background:#2E86C1; width:48px; height:48px; font-size:18px;">&#x1F916;</div>
+          <div class="step-label">AI Assistant</div>
+          <div class="step-desc">Interprets intent, selects tools</div>
+        </div>
+        <div class="flow-arrow">&#x2794;</div>
+        <div class="flow-step" style="width:150px;">
+          <div class="circle" style="background:#27AE60; width:48px; height:48px; font-size:18px;">&#x1F50C;</div>
+          <div class="step-label">MCP Server</div>
+          <div class="step-desc">34 tools, role-based access</div>
+        </div>
+        <div class="flow-arrow">&#x2794;</div>
+        <div class="flow-step" style="width:150px;">
+          <div class="circle" style="background:#F39C12; width:48px; height:48px; font-size:18px;">&#x1F4BE;</div>
+          <div class="step-label">mGrant DB</div>
+          <div class="step-desc">Live data via Frappe REST API</div>
+        </div>
+        <div class="flow-arrow">&#x2794;</div>
+        <div class="flow-step" style="width:150px;">
+          <div class="circle" style="background:#1ABC9C; width:48px; height:48px; font-size:18px;">&#x2728;</div>
+          <div class="step-label">Answer</div>
+          <div class="step-desc">Instant, accurate, contextual response</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════ INTEGRATIONS ═══════════════ -->
+<section id="integrations">
+<div class="container">
+  <div class="section-header">
+    <h2>Seamless Integrations <span class="new-tag">NEW</span></h2>
+    <p>mGrant NUO connects with your existing technology ecosystem through robust, production-grade integrations.</p>
+  </div>
+  <div class="integration-grid">
+    <div class="int-card">
+      <div class="int-icon">&#x1F4B1;</div>
+      <h4>Tally ERP <span class="new-tag">NEW</span></h4>
+      <p>Bi-directional sync — master data, monthly expense utilisation, fund receipts, and budget reconciliation via canonical schema.</p>
+    </div>
+    <div class="int-card">
+      <div class="int-icon">&#x1F4F1;</div>
+      <h4>mForm (Dhwani)</h4>
+      <p>Offline field data collection and Programme MIS mobile app. Beneficiary-level data flows directly into project KPIs.</p>
+    </div>
+    <div class="int-card">
+      <div class="int-icon">&#x1F4CA;</div>
+      <h4>BI Tools</h4>
+      <p>Out-of-the-box connectors for Power BI, Tableau, Superset, and Google Data Studio for advanced analytics.</p>
+    </div>
+    <div class="int-card">
+      <div class="int-icon">&#x1F50C;</div>
+      <h4>Custom APIs</h4>
+      <p>Extensible REST API framework for ERP, HRMS, accounting, and any other mission-critical system integration.</p>
+    </div>
+    <div class="int-card">
+      <div class="int-icon">&#x1F4E7;</div>
+      <h4>Email &amp; Notifications</h4>
+      <p>Auto-triggered email alerts for approvals, deadlines, fund disbursements, and task reminders — fully configurable.</p>
+    </div>
+    <div class="int-card">
+      <div class="int-icon">&#x1F512;</div>
+      <h4>SSO (Google / O365)</h4>
+      <p>Single Sign-On with Google Workspace and Microsoft Office 365 for secure, frictionless authentication.</p>
+    </div>
+  </div>
+
+  <!-- Tally Integration Flow -->
+  <div style="margin-top: 36px;">
+    <h3 style="text-align:center; font-size:16px; margin-bottom:20px; color:var(--text-muted);">Tally ↔ mGrant Integration Flow</h3>
+    <div class="flow-container">
+      <div class="flow-horizontal" style="min-width: 750px;">
+        <div class="flow-step" style="width:140px;">
+          <div class="circle" style="background:#34495E; width:48px; height:48px; font-size:16px;">&#x1F4B1;</div>
+          <div class="step-label">Tally / VOLAC</div>
+          <div class="step-desc">Source of truth for financial masters &amp; postings</div>
+        </div>
+        <div class="flow-arrow">&#x2794;</div>
+        <div class="flow-step" style="width:140px;">
+          <div class="circle" style="background:#8E44AD; width:48px; height:48px; font-size:16px;">&#x2699;</div>
+          <div class="step-label">TDL Connector</div>
+          <div class="step-desc">Extracts, transforms, exposes REST APIs</div>
+        </div>
+        <div class="flow-arrow">&#x2794;</div>
+        <div class="flow-step" style="width:140px;">
+          <div class="circle" style="background:#2E86C1; width:48px; height:48px; font-size:16px;">&#x1F504;</div>
+          <div class="step-label">Canonical Schema</div>
+          <div class="step-desc">Unified format for any finance system</div>
+        </div>
+        <div class="flow-arrow">&#x2794;</div>
+        <div class="flow-step" style="width:140px;">
+          <div class="circle" style="background:#27AE60; width:48px; height:48px; font-size:16px;">&#x2705;</div>
+          <div class="step-label">mGrant Engine</div>
+          <div class="step-desc">Validates, maps, reconciles, stores</div>
+        </div>
+        <div class="flow-arrow">&#x2794;</div>
+        <div class="flow-step" style="width:140px;">
+          <div class="circle" style="background:#F39C12; width:48px; height:48px; font-size:16px;">&#x1F4CA;</div>
+          <div class="step-label">Reports &amp; Views</div>
+          <div class="step-desc">Budget vs Utilisation, tranche vs receipts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════ DASHBOARDS ═══════════════ -->
+<section id="dashboards">
+<div class="container">
+  <div class="section-header">
+    <h2>Dashboards &amp; Analytics</h2>
+    <p>Role-based, real-time visual insights — from portfolio overview to granular project-level performance.</p>
+  </div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="icon icon-blue">&#x1F5FA;</div>
+      <h3>Portfolio Dashboard</h3>
+      <ul>
+        <li>Total projects, NGO partners, and donor count</li>
+        <li>Distribution by Focus Area (pie chart)</li>
+        <li>State-wise project count on India map</li>
+        <li>Portfolio-wise output achievements (planned vs. actual)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="icon icon-green">&#x1F4B0;</div>
+      <h3>Finance Dashboard</h3>
+      <ul>
+        <li>Sanctioned vs. received vs. utilised amounts</li>
+        <li>Utilisation rates across all active projects</li>
+        <li>Fund receipt tracking with tranche schedules</li>
+        <li>Unutilised balance at a glance</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="icon icon-orange">&#x1F50D;</div>
+      <h3>Dynamic Filtering</h3>
+      <ul>
+        <li>Filter by Project, Partner, Financial Year, State</li>
+        <li>Multi-dimensional slicing across all data</li>
+        <li>Hierarchical drill-down: State → District → Block</li>
+        <li>Export to Excel, PDF, or CSV</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="icon icon-purple">&#x1F4E2;</div>
+      <h3>Compliance Reporting</h3>
+      <ul>
+        <li>CSR-2 Form alignment and tracking</li>
+        <li>Annual Action Plan compliance</li>
+        <li>Admin expense cap monitoring</li>
+        <li>Impact assessment reports</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════ ROLES & SECURITY ═══════════════ -->
+<section id="roles">
+<div class="container">
+  <div class="section-header">
+    <h2>Roles &amp; Security</h2>
+    <p>Fine-grained role-based access control ensures the right people see the right data — nothing more, nothing less.</p>
+  </div>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Projects</th>
+        <th>Fund Mgmt</th>
+        <th>Reports</th>
+        <th>Approvals</th>
+        <th>User Mgmt</th>
+        <th>Settings</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>System Manager</strong></td>
+        <td class="check">&#x2713;</td>
+        <td class="check">&#x2713;</td>
+        <td class="check">&#x2713;</td>
+        <td class="check">&#x2713;</td>
+        <td class="check">&#x2713;</td>
+        <td class="check">&#x2713;</td>
+      </tr>
+      <tr>
+        <td><strong>NGO Admin</strong></td>
+        <td class="check">&#x2713;</td>
+        <td class="check">&#x2713;</td>
+        <td class="check">&#x2713;</td>
+        <td class="check">&#x2713;</td>
+        <td class="cross">&#x2717;</td>
+        <td class="cross">&#x2717;</td>
+      </tr>
+      <tr>
+        <td><strong>Project Manager</strong></td>
+        <td class="check">&#x2713;</td>
+        <td class="check">&#x2713;</td>
+        <td class="check">&#x2713;</td>
+        <td class="cross">&#x2717;</td>
+        <td class="cross">&#x2717;</td>
+        <td class="cross">&#x2717;</td>
+      </tr>
+      <tr>
+        <td><strong>Finance Officer</strong></td>
+        <td class="cross">&#x2717;</td>
+        <td class="check">&#x2713;</td>
+        <td class="check">&#x2713;</td>
+        <td class="check">&#x2713;</td>
+        <td class="cross">&#x2717;</td>
+        <td class="cross">&#x2717;</td>
+      </tr>
+      <tr>
+        <td><strong>M&amp;E Officer</strong></td>
+        <td class="check">&#x2713;</td>
+        <td class="cross">&#x2717;</td>
+        <td class="check">&#x2713;</td>
+        <td class="cross">&#x2717;</td>
+        <td class="cross">&#x2717;</td>
+        <td class="cross">&#x2717;</td>
+      </tr>
+      <tr>
+        <td><strong>Partner NGO User</strong></td>
+        <td>Own only</td>
+        <td>Own only</td>
+        <td>Own only</td>
+        <td class="cross">&#x2717;</td>
+        <td class="cross">&#x2717;</td>
+        <td class="cross">&#x2717;</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-grid" style="margin-top: 24px;">
+    <div class="card">
+      <div class="icon icon-red">&#x1F6E1;</div>
+      <h3>Security &amp; Compliance</h3>
+      <ul>
+        <li>VAPT-certified (Vulnerability Assessment &amp; Penetration Testing)</li>
+        <li>ISO 27001 compliant infrastructure</li>
+        <li>End-to-end audit trail with versioning</li>
+        <li>Data isolation per organisation</li>
+        <li>Token-based API authentication</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="icon icon-teal">&#x1F527;</div>
+      <h3>Low-Code Configuration</h3>
+      <ul>
+        <li>Custom fields — add org-specific data points without code</li>
+        <li>Configurable approval workflows via admin UI</li>
+        <li>Flexible notification rules (email, in-app)</li>
+        <li>Bulk upload via downloadable Excel/CSV templates</li>
+        <li>Template-driven document generation (MoU, LoA, Fund Letters)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════ WHY NUO ═══════════════ -->
+<section id="whynuo">
+<div class="container">
+  <div class="section-header">
+    <h2>Why mGrant NUO?</h2>
+    <p>Built by people who understand the non-profit sector — for the people who run it every day.</p>
+  </div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Capability</th>
+        <th>Spreadsheets</th>
+        <th>Generic CRM</th>
+        <th style="background: #27AE60;">mGrant NUO</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Grant lifecycle tracking</td><td class="cross">Manual</td><td class="cross">Partial</td><td class="check">End-to-end</td></tr>
+      <tr><td>Fund request &amp; disbursement</td><td class="cross">Manual</td><td class="cross">&#x2717;</td><td class="check">Built-in workflows</td></tr>
+      <tr><td>LFA / Impact tracking</td><td class="cross">&#x2717;</td><td class="cross">&#x2717;</td><td class="check">Native LFA module</td></tr>
+      <tr><td>Tally / ERP integration</td><td class="cross">&#x2717;</td><td class="cross">&#x2717;</td><td class="check">Canonical schema sync</td></tr>
+      <tr><td>AI-powered data chat</td><td class="cross">&#x2717;</td><td class="cross">&#x2717;</td><td class="check">MCP with 34 tools</td></tr>
+      <tr><td>RFP scouting agent</td><td class="cross">&#x2717;</td><td class="cross">&#x2717;</td><td class="check">AI-driven matching</td></tr>
+      <tr><td>Configurable approvals</td><td class="cross">&#x2717;</td><td class="cross">Partial</td><td class="check">Multi-level, no-code</td></tr>
+      <tr><td>Indian CSR compliance</td><td class="cross">Manual</td><td class="cross">&#x2717;</td><td class="check">CSR-2, AAP built-in</td></tr>
+      <tr><td>Geo-hierarchical tracking</td><td class="cross">&#x2717;</td><td class="cross">&#x2717;</td><td class="check">State → District → Block</td></tr>
+      <tr><td>Field data collection</td><td class="cross">&#x2717;</td><td class="cross">&#x2717;</td><td class="check">mForm integration</td></tr>
+    </tbody>
+  </table>
+
+  <div style="text-align: center; margin-top: 40px; padding: 32px; background: linear-gradient(135deg, #1B4F72 0%, #2E86C1 100%); border-radius: 12px; color: white;">
+    <h3 style="font-size: 22px; margin-bottom: 8px;">Ready to transform your grant management?</h3>
+    <p style="opacity: 0.9; margin-bottom: 4px;">Dhwani Rural Information Systems Pvt. Ltd.</p>
+    <p style="opacity: 0.85; font-size: 14px;">partnerships@dhwaniris.com &bull; www.dhwaniris.com</p>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <p>&copy; 2026 Dhwani Rural Information Systems Pvt. Ltd. &bull; All Rights Reserved</p>
+  <p style="margin-top: 4px; font-size: 12px;">mGrant NUO Feature Note v2.0 &bull; April 2026 &bull; Confidential</p>
+</footer>
+
+<!-- ═══════════════ SCROLL SPY ═══════════════ -->
+<script>
+  // Smooth scroll for nav links
+  document.querySelectorAll('.toc a').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        const offset = document.querySelector('.toc').offsetHeight;
+        window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Active section highlighting
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.toc a');
+  window.addEventListener('scroll', () => {
+    const scrollPos = window.scrollY + 100;
+    sections.forEach(section => {
+      if (section.offsetTop <= scrollPos && (section.offsetTop + section.offsetHeight) > scrollPos) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.toc a[href="#' + section.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

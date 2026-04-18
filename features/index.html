@@ -147,11 +147,11 @@ body {
 }
 
 .stats-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
   justify-content: center;
   gap: 12px;
-  flex-wrap: wrap;
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
 }
 .stat-pill {
@@ -163,6 +163,7 @@ body {
   border-radius: 100px;
   padding: 10px 24px;
   backdrop-filter: blur(10px);
+  white-space: nowrap;
 }
 .stat-pill .n { font-size: 22px; font-weight: 700; color: var(--orange-light); }
 .stat-pill .l { font-size: 13px; opacity: 0.8; font-weight: 400; }
@@ -431,8 +432,8 @@ footer a { color: var(--orange-light); text-decoration: none; }
   .hero { padding: 40px 16px 36px; }
   .hero h1 { font-size: 28px; }
   .hero .sub { font-size: 14px; }
-  .stats-row { gap: 6px; }
-  .stat-pill { padding: 6px 12px; }
+  .stats-row { grid-template-columns: repeat(2, auto); gap: 8px; }
+  .stat-pill { padding: 6px 14px; }
   .stat-pill .n { font-size: 16px; }
   nav.toc a { padding: 10px 8px; font-size: 11px; }
   .cg { grid-template-columns: 1fr; }
@@ -469,7 +470,7 @@ footer a { color: var(--orange-light); text-decoration: none; }
 
 <!-- NAV -->
 <nav class="toc" id="toc">
-  <a href="../" style="color:#fff;font-weight:600;background:var(--maroon);border-radius:100px;padding:8px 18px;margin:6px 8px 6px 0;font-size:12px;border-bottom:none;letter-spacing:0.3px;">&#x2190; Executive Summary</a>
+  <a href="/mgrant-nuo/" style="color:#fff;font-weight:600;background:var(--maroon);border-radius:100px;padding:8px 18px;margin:6px 8px 6px 0;font-size:12px;border-bottom:none;letter-spacing:0.3px;">&#x2190; Executive Summary</a>
   <a href="#overview">Overview</a>
   <a href="#crm">Fundraising CRM</a>
   <a href="#grant">Grant &amp; Finance</a>
